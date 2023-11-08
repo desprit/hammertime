@@ -1,0 +1,63 @@
+body {
+  font-family: monospace;
+}
+
+h1 {
+  color: red;
+  font-size: 20px;
+}
+
+#schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weekday {
+  margin-top: 16px;
+  background-color: #eee;
+  padding: 4px 8px;
+  width: 100px;
+  border-radius: 4px;
+  text-align: center;
+  border-left: 4px solid darksalmon;
+}
+
+.schedule-entry {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.schedule-entry > .entry-content {
+  display: flex;
+  gap: 12px;
+}
+
+.schedule-entry > .entry-datetime {
+}
+
+.schedule-entry .entry-trainer {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn {
+  text-decoration: none;
+  border: 1px solid #666;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: #eee;
+  color: #111;
+  padding: 1px 16px;
+}
+.btn:hover {
+  filter: brightness(0.9);
+}
+
+.btn-success {
+  background-color: darksalmon;
+}

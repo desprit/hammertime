@@ -1,0 +1,18 @@
+version: "2"
+sql:
+  - engine: "sqlite"
+    queries: "src/db/subscription/query.sql"
+    schema: "src/db/subscription/schema.sql"
+    gen:
+      go:
+        package: "subscription_storage"
+        out: "src/db/subscription"
+        emit_json_tags: true
+  - engine: "sqlite"
+    queries: "src/db/schedule/query.sql"
+    schema: "src/db/schedule/schema.sql"
+    gen:
+      go:
+        package: "schedule_storage"
+        out: "src/db/schedule"
+        emit_json_tags: true

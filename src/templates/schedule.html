@@ -1,0 +1,25 @@
+{{define "schedule"}}
+<div id="schedule">
+  {{range $i, $element := .groups }}
+  <div class="weekday">{{ $element.Day }} - {{ $element.Datetime }}</div>
+  {{range $y, $x := $element.Entries }}
+  <div class="schedule-entry">
+    <div class="entry-content">
+      <div class="entry-datetime">{{ $x.Datetime }}</div>
+      <div class="entry-trainer">{{ $x.Activity }}</div>
+    </div>
+    <div>
+      {{if $x.SubscribedD}}
+      <a href="/subscription/d/{{$x.ID}}/cancel" class="btn btn-success">D</a>
+      {{else}}
+      <a href="/subscription/d/{{$x.ID}}/register" class="btn">D</a>
+      {{end}} {{if $x.SubscribedM}}
+      <a href="/subscription/m/{{$x.ID}}/cancel" class="btn btn-success">M</a>
+      {{else}}
+      <a href="/subscription/m/{{$x.ID}}/register" class="btn">M</a>
+      {{end}}
+    </div>
+  </div>
+  {{end}} {{end}}
+</div>
+{{end}}

@@ -16,6 +16,8 @@ type Config struct {
 	TG_BOT_TOKEN   string `env:"TG_BOT_TOKEN"`
 	HAMMER_TOKEN_D string `env:"HAMMER_TOKEN_D"`
 	HAMMER_TOKEN_M string `env:"HAMMER_TOKEN_M"`
+	WEB_USER       string `env:"WEB_USER"`
+	WEB_PASS       string `env:"WEB_PASS"`
 }
 
 func (c *Config) DbUri() string {

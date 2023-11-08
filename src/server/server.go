@@ -2,7 +2,9 @@ package server
 
 import (
 	"context"
+	"crypto/subtle"
 	"database/sql"
+	"desprit/hammertime/src/config"
 	"io"
 	"text/template"
 
@@ -27,6 +29,14 @@ func NewServer(d *sql.DB) *Server {
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) {
+		cfg := config.GetConfig()
+		if subtle.ConstantTimeCompare([]byte(username), []byte(cfg.WEB_USER)) == 1 &&
+			subtle.ConstantTimeCompare([]byte(password), []byte(cfg.WEB_PASS)) == 1 {
+			return true, nil
+		}
+		return false, nil
+	}))
 	t := &Template{
 		templates: template.Must(template.ParseGlob("src/templates/*.html")),
 	}

@@ -80,7 +80,7 @@ func (s *FakeScraper) Scrape(year, week int) (scraper.ScheduleResponse, error) {
 	return scraper.ScheduleResponse{}, nil
 }
 
-func (s *FakeScraper) Reserve(activityID int64) (scraper.ReservationResponse, error) {
+func (s *FakeScraper) Reserve(activityID int64, token string) (scraper.ReservationResponse, error) {
 	return scraper.ReservationResponse{}, nil
 }
 

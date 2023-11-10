@@ -235,7 +235,7 @@ func (s *Scheduler) RegisterSubscriptionsHandleTask() {
 						continue
 					}
 				}
-				response, err := s.scraper.Reserve(scheduleEntry.ActivityID)
+				response, err := s.scraper.Reserve(scheduleEntry.ActivityID, user.Token)
 				if err != nil {
 					message := fmt.Sprintf(
 						"Хотел записать |%s| на %s, но что-то пошло не так!",

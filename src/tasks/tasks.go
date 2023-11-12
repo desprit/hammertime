@@ -143,7 +143,7 @@ func (s *Scheduler) RegisterSubscriptionsCheckTask() {
 						go func(sub subscription_storage.Subscription, t time.Time) {
 							log.Printf("Goroutine for subscription %d started, it will trigger %v", sub.ID, t)
 							message := fmt.Sprintf(
-								"Получил заявку от |%s| на %s, запись откроется %s, попробую записать! #FingersCrossed",
+								"Получила заявку от |%s| на %s, запись откроется %s, попробую записать! #FingersCrossed",
 								user_storage.UserMapByID[sub.UserID].Name,
 								scheduleEntry.Activity,
 								beginDate,
@@ -206,7 +206,7 @@ func (s *Scheduler) RegisterSubscriptionsHandleTask() {
 				scheduleEntry, err := s.ScheduleStorage.GetScheduleEntry(s.ctx, sub.ScheduleID)
 				if err != nil {
 					log.Printf("Couldn't get schedule entry in RegisterSubscriptionsHandleTask: %v", err)
-					message := fmt.Sprintf("Хотел записать |%s| на тренировку, но что-то пошло не так!", user.Name)
+					message := fmt.Sprintf("Хотела записать |%s| на тренировку, но что-то пошло не так!", user.Name)
 					s.messager.SendMessage(message)
 					continue
 				}
@@ -214,7 +214,7 @@ func (s *Scheduler) RegisterSubscriptionsHandleTask() {
 				if err != nil {
 					log.Printf("Couldn't check for slots in RegisterSubscriptionsHandleTask: %v", err)
 					message := fmt.Sprintf(
-						"Хотел записать |%s| на %s, но не удалось получить информацию о занятии.",
+						"Хотела записать |%s| на %s, но не удалось получить информацию о занятии.",
 						user.Name,
 						scheduleEntry.Activity,
 					)
@@ -224,13 +224,13 @@ func (s *Scheduler) RegisterSubscriptionsHandleTask() {
 					log.Printf("Got schedule item: %+v", resp)
 					if !resp.BookingOpened {
 						log.Printf("Booking is not opened in RegisterSubscriptionsHandleTask")
-						message := fmt.Sprintf("Хотел записать |%s| на %s, но запись почему-то закрыта. #F", user.Name, scheduleEntry.Activity)
+						message := fmt.Sprintf("Хотела записать |%s| на %s, но запись почему-то закрыта. #F", user.Name, scheduleEntry.Activity)
 						s.messager.SendMessage(message)
 						continue
 					}
 					if resp.AvailableSlots == 0 {
 						log.Printf("No available slots in RegisterSubscriptionsHandleTask")
-						message := fmt.Sprintf("Хотел записать |%s| на %s, но свободных мест больше нет! #DaKakTakTo", user.Name, scheduleEntry.Activity)
+						message := fmt.Sprintf("Хотела записать |%s| на %s, но свободных мест больше нет! #DaKakTakTo", user.Name, scheduleEntry.Activity)
 						s.messager.SendMessage(message)
 						continue
 					}
@@ -238,7 +238,7 @@ func (s *Scheduler) RegisterSubscriptionsHandleTask() {
 				response, err := s.scraper.Reserve(scheduleEntry.ActivityID, user.Token)
 				if err != nil {
 					message := fmt.Sprintf(
-						"Хотел записать |%s| на %s, но что-то пошло не так!",
+						"Хотела записать |%s| на %s, но что-то пошло не так!",
 						user.Name,
 						scheduleEntry.Activity,
 					)
@@ -247,14 +247,14 @@ func (s *Scheduler) RegisterSubscriptionsHandleTask() {
 				} else {
 					if response.Result == "success" {
 						message := fmt.Sprintf(
-							"Я записал |%s| на %s, ура! #DobroHacker",
+							"Я записала |%s| на %s, ура! #DobroHacker",
 							user.Name,
 							scheduleEntry.Activity,
 						)
 						s.messager.SendMessage(message)
 					} else {
 						message := fmt.Sprintf(
-							"Хотел записать |%s| на %s, но что-то пошло не так!",
+							"Хотела записать |%s| на %s, но что-то пошло не так!",
 							user.Name,
 							scheduleEntry.Activity,
 						)

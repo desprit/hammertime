@@ -139,7 +139,7 @@ func (s *Scheduler) RegisterSubscriptionsCheckTask() {
 						cancelMap[sub.ID] = cancel
 						t, _ := time.Parse(time.RFC3339, scheduleEntry.BeginDate)
 						beginDate := monday.Format(t, "Jan'02 15:04", monday.LocaleRuRU)
-						t = t.Add(time.Duration(time.Second * 5))
+						t = t.Add(time.Duration(time.Second * 2))
 						go func(sub subscription_storage.Subscription, t time.Time) {
 							log.Printf("Goroutine for subscription %d started, it will trigger %v", sub.ID, t)
 							message := fmt.Sprintf(

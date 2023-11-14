@@ -1,3 +1,4 @@
 sqlite_data/*
 !sqlite_data/.gitkeep
 *.env
+.vscode

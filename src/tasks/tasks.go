@@ -238,9 +238,10 @@ func (s *Scheduler) RegisterSubscriptionsHandleTask() {
 				response, err := s.scraper.Reserve(scheduleEntry.ActivityID, user.Token)
 				if err != nil {
 					message := fmt.Sprintf(
-						"Хотела записать |%s| на %s, но что-то пошло не так!",
+						"Хотела записать |%s| на %s, но что-то пошло не так! %s",
 						user.Name,
 						scheduleEntry.Activity,
+						err,
 					)
 					log.Printf("Couldn't reserve in RegisterSubscriptionsHandleTask: %v", err)
 					s.messager.SendMessage(message)
@@ -253,10 +254,15 @@ func (s *Scheduler) RegisterSubscriptionsHandleTask() {
 						)
 						s.messager.SendMessage(message)
 					} else {
+						msg := ""
+						for _, m := range response.Errors {
+							msg += m
+						}
 						message := fmt.Sprintf(
-							"Хотела записать |%s| на %s, но что-то пошло не так!",
+							"Хотела записать |%s| на %s, но что-то пошло не так! %s",
 							user.Name,
 							scheduleEntry.Activity,
+							msg,
 						)
 						log.Printf("Couldn't reserve in RegisterSubscriptionsHandleTask: %+v", response)
 						s.messager.SendMessage(message)

@@ -6,6 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
+	"desprit/hammertime/src/config"
 	"desprit/hammertime/src/scraper"
 )
 
@@ -28,4 +29,12 @@ func TestGetScheduleItem(t *testing.T) {
 	res, err := s.GetScheduleItem(172297107112023)
 	assert.Nil(t, err)
 	assert.NotNil(t, res)
+}
+
+func TestReserve(t *testing.T) {
+	s := scraper.NewHttpScraper()
+	res, err := s.Reserve(228795221022024, config.GetConfig().HAMMER_TOKEN_D)
+	if assert.NoError(t, err) {
+		t.Logf("%+v", res)
+	}
 }
